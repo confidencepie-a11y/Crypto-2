@@ -1,0 +1,356 @@
+/* ---------- Base ---------- */
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --muted: #8a8a8f;
+  --green: #30d158;
+  --surface: #121214;
+  --pad: 20px;
+  --font-money: "Instrument Sans", "DM Sans", -apple-system, "SF Pro Display", "Segoe UI", sans-serif;
+  --font: "DM Sans", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+svg { display: block; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- App frame ---------- */
+.app {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 100dvh;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+@media (min-width: 500px) {
+  body { padding: 24px; }
+  .app { height: 820px; border-radius: 36px; border: 1px solid #1a1a1c; }
+}
+
+.screen {
+  height: 100%;
+  overflow-y: auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) var(--pad) 120px;
+  scrollbar-width: none;
+}
+.screen::-webkit-scrollbar { display: none; }
+
+/* ---------- Balance ---------- */
+.balance { text-align: center; }
+
+.balance-amount {
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.balance-amount .cur { font-size: 30px; font-weight: 400; margin-right: 2px; vertical-align: 6px; }
+.balance-amount .cents { font-size: 24px; font-weight: 400; color: var(--muted); }
+
+.change-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 500;
+}
+.change-pill .dot { color: var(--muted); }
+
+.up { color: var(--green); }
+
+/* ---------- Quick actions ---------- */
+.actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.action {
+  height: 44px;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform .15s ease, background .15s ease;
+}
+.action svg { width: 16px; height: 16px; stroke-width: 2.8; }
+.action:active { transform: scale(.96); background: #e4e4e7; }
+
+/* ---------- Segmented control ---------- */
+.seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 28px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--surface);
+}
+.seg-btn {
+  height: 38px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: background .2s ease, color .2s ease;
+}
+.seg-btn.active { background: #000; color: #fff; box-shadow: 0 0 0 1px #1f1f22; }
+
+/* ---------- Lists ---------- */
+.list { margin-top: 20px; display: flex; flex-direction: column; gap: 18px; }
+.hidden { display: none; }
+
+.row { display: flex; align-items: center; gap: 12px; }
+
+.coin {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.coin svg { width: 24px; height: 24px; stroke: #fff; }
+.coin.btc { background: #f7931a; }
+.coin.eth { background: #4a4d85; }
+.coin.eth svg { fill: #fff; stroke-width: 1.6; }
+
+.meta { flex: 1; min-width: 0; }
+.val { text-align: right; }
+
+.name { font-size: 16px; font-weight: 500; line-height: 1.25; }
+.sub  { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.sub.up { color: var(--green); }
+
+.empty {
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--surface);
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---------- Money font ---------- */
+.money {
+  font-family: var(--font-money);
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums;
+}
+.balance-amount.money { font-weight: 600; letter-spacing: -0.04em; }
+.name.money { font-weight: 600; }
+
+/* ---------- Promo ---------- */
+.promo {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 18px 6px 18px 20px;
+  border-radius: 24px;
+  background: #f3f3f5;
+  color: #111;
+  overflow: hidden;
+}
+.promo-text { flex: 1; min-width: 0; }
+.promo-tag { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #6c6cdc; }
+.promo-title { margin-top: 6px; font-size: 19px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+.promo-desc { margin-top: 6px; font-size: 13px; line-height: 1.35; color: #6b6b72; }
+.promo-btn {
+  margin-top: 14px;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+.promo-btn:active { transform: scale(.96); }
+.promo-art { width: 128px; flex-shrink: 0; }
+.promo-art svg { width: 100%; height: auto; fill: none; stroke: none; stroke-linejoin: round; }
+
+/* ---------- Liquid glass nav ---------- */
+.nav {
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
+  pointer-events: none;
+}
+
+.nav-glass {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding: 7px;
+  border-radius: 40px;
+  background: linear-gradient(180deg, rgba(70,78,74,.42), rgba(34,38,36,.52));
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+          backdrop-filter: blur(28px) saturate(170%);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.14),
+    inset 0 -1px 0 rgba(255,255,255,.04),
+    0 14px 34px rgba(0,0,0,.65);
+}
+
+.nav-btn {
+  padding: 11px 0 10px;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  transition: background .25s ease;
+}
+.nav-btn svg { width: 26px; height: 26px; stroke-width: 2.3; }
+.nav-btn svg .fill { fill: currentColor; stroke: none; }
+.nav-btn.active {
+  background: rgba(0,0,0,.30);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+/* ============================================================
+   Vero splash screen
+   Timeline (10s total, set in splash.js):
+   0.5s  top capsule slides in, trailing layers follow
+   1.0s  bottom capsule slides in the opposite way
+   2.6s  the capsules lock together: ring pulse + glow
+   3.1s  icon glides left while the wordmark draws in
+   5.0s  hold, glow breathes
+   9.3s  fade out, wallet revealed
+   ============================================================ */
+
+:root { --brand: #4ef63e; }
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  opacity: 1;
+  transition: opacity .7s ease;
+}
+.splash.leave { opacity: 0; pointer-events: none; }
+.splash.leave .splash-logo { transform: scale(1.06); }
+
+.splash-logo {
+  width: min(84vw, 380px);
+  height: auto;
+  overflow: visible;
+  transition: transform .7s ease;
+}
+
+/* ---- Wallet reveal behind the splash ---- */
+.app { transition: opacity .8s ease, transform .8s cubic-bezier(.16, 1, .3, 1); }
+body.splash-on .app { opacity: 0; transform: scale(1.03); }
+body.splash-on { overflow: hidden; }
+
+/* ---- Icon layers ---- */
+.lay { --ease: cubic-bezier(.16, 1, .3, 1); --d: 0s; }
+.la { --fx: -74px; --fy: -95px; }
+.lb { --fx:  74px; --fy:  95px; }
+.la.main { --d: .5s; }
+.lb.main { --d: 1s; }
+.la.g1 { --d: .62s; --o: .34; }
+.la.g2 { --d: .76s; --o: .22; }
+.la.g3 { --d: .90s; --o: .12; }
+.lb.g1 { --d: 1.12s; --o: .34; }
+.lb.g2 { --d: 1.26s; --o: .22; }
+.lb.g3 { --d: 1.40s; --o: .12; }
+
+.lay.main {
+  animation:
+    v-slide 1.7s var(--ease) var(--d) both,
+    v-fade  .5s linear var(--d) both;
+}
+.lay.ghost {
+  animation:
+    v-slide 1.7s var(--ease) var(--d) both,
+    v-trail 1.7s linear var(--d) both;
+}
+
+@keyframes v-slide {
+  from { transform: translate(var(--fx), var(--fy)); }
+  to   { transform: translate(0, 0); }
+}
+@keyframes v-fade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes v-trail {
+  0%   { opacity: 0; }
+  12%  { opacity: var(--o); }
+  70%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* ---- Icon glide + glow ---- */
+.v-icon { animation: v-glide 1.1s cubic-bezier(.65, 0, .35, 1) 3.1s both; }
+@keyframes v-glide {
+  from { transform: translateX(172px); }
+  to   { transform: translateX(0); }
+}
+
+.v-halo {
+  animation:
+    v-halo-in 1s ease-out 2.4s both,
+    v-breathe 3.4s ease-in-out 4.4s infinite;
+}
+@keyframes v-halo-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes v-breathe { 0%, 100% { opacity: 1; } 50% { opacity: .45; } }
+
+.v-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: v-ring 1.3s ease-out 2.45s forwards;
+}
+@keyframes v-ring {
+  from { transform: scale(1);  opacity: .9; }
+  to   { transform: scale(12); opacity: 0; }
+}
+
+/* ---- Wordmark ---- */
+.gl { animation: v-glyph .9s cubic-bezier(.16, 1, .3, 1) calc(3.6s + var(--i) * .14s) both; }
+@keyframes v-glyph {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ---- Reduced motion: show the finished logo, no movement ---- */
+@media (prefers-reduced-motion: reduce) {
+  .splash *, .splash-logo { animation: none !important; transition: none !important; }
+  .lay.ghost, .v-ring { display: none; }
+  .app { transition: none; }
+}
